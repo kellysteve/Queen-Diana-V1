@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aizen MD Deployed Successfully</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, #000000 0%, #0a0a0a 100%);
+            font-family: 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .container {
+            text-align: center;
+            color: #ffffff;
+            animation: fadeInZoom 5s ease forwards;
+            z-index: 1;
+        }
+        .title {
+            font-size: 3em;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-shadow:
+                0 0 5px #a600ff,
+                0 0 10px #a600ff,
+                0 0 20px #a600ff,
+                0 0 40px #a600ff;
+            opacity: 0;
+            animation: fadeInText 3s ease forwards 1s;
+        }
+        .sub {
+            font-size: 1.3em;
+            margin-top: 20px;
+            color: #ccc;
+            opacity: 0;
+            animation: fadeInText 2s ease forwards 3.5s;
+        }
+        @keyframes fadeInZoom {
+            0% {
+                transform: scale(1.1);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        @keyframes fadeInText {
+            to {
+                opacity: 1;
+            }
+        }
+        .flicker {
+            animation: flickerAnimation 2.5s infinite;
+        }
+        @keyframes flickerAnimation {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                opacity: 1;
+            }
+            20%, 24%, 55% {
+                opacity: 0.4;
+            }
+        }
+       
+        .ad-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .ad-content {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+            border: 1px solid #a600ff;
+            box-shadow: 0 0 20px #a600ff;
+            position: relative;
+        }
+        .ad-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #fff;
+            cursor: pointer;
+        }
+        .ad-timer {
+            color: #ff2b91;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .ad-skip {
+            background-color: #ff2b91;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .ad-skip:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .ad-logo {
+            font-size: 2em;
+            color: #ff2b91;
+            margin-bottom: 10px;
+        }
+        
+        /* Footer Styles */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 15px 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            z-index: 10;
+            opacity: 0;
+            animation: fadeInText 2s ease forwards 5s;
+        }
+        .footer a {
+            color: #a600ff;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+        .footer a:hover {
+            color: #ff2b91;
+            text-shadow: 0 0 5px #ff2b91;
+        }
+        .social-icons a {
+            font-size: 1.5em;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title flicker">Thanks for Deploying</div>
+        <div class="title" style="font-size: 4em; color: #ff2b91; text-shadow: 0 0 10px #ff2b91, 0 0 20px #ff2b91;">Aizen MD</div>
+        <div class="sub">Your bot is now watching the multiverse.</div>
+    </div>
+    
+    <div class="ad-modal" id="adModal">
+        <div class="ad-content">
+            <span class="ad-close" id="adClose">&times;</span>
+            <div class="ad-logo">
+                <i class="fas fa-ad"></i> Sponsored
+            </div>
+            <h4>Powered by Toxxic API</h4>
+            <p>Enhance your bot with our powerful API services:</p>
+            <div class="ad-timer">Ad will close in <span id="countdown">5</span> seconds</div>
+            <a href="http://api-toxxic.zone.id/" target="_blank" class="btn btn-primary">Visit Toxxic API</a>
+            <button class="ad-skip" id="skipAd" disabled>Skip Ad (5s)</button>
+        </div>
+    </div>
+    <div class="footer text-center">
+        <div class="mb-2">
+            <a href="http://api-toxxic.zone.id/" target="_blank">Toxxic API</a> | 
+            <a href="https://session-toxxictech.zone.id/" target="_blank">Session Generator</a> | 
+            <a href="https://github.com/Toxic1239/Queen-RiasV3_" target="_blank">Rias Gremory Bot</a>
+        </div>
+        <div class="social-icons">
+            <a href="https://github.com/Toxic1239" target="_blank" title="Owner GitHub"><i class="fab fa-github"></i></a>
+        </div>
+        <div class="mt-2">
+            © 2025 Aizen MD | Developed by Toxic
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        setTimeout(showAd, 15000);
+        
+        function showAd() {
+            const adModal = document.getElementById('adModal');
+            const skipAd = document.getElementById('skipAd');
+            const countdown = document.getElementById('countdown');
+            
+            adModal.style.display = 'flex';
+            
+            let seconds = 5;
+            const timer = setInterval(() => {
+                seconds--;
+                countdown.textContent = seconds;
+                
+                if (seconds <= 0) {
+                    clearInterval(timer);
+                    skipAd.disabled = false;
+                    skipAd.textContent = 'Skip Ad';
+                } else {
+                    skipAd.textContent = `Skip Ad (${seconds}s)`;
+                }
+            }, 1000);
+            
+            skipAd.addEventListener('click', () => {
+                clearInterval(timer);
+                adModal.style.display = 'none';
+                setTimeout(showAd, 60000);
+            });
+            
+            document.getElementById('adClose').addEventListener('click', () => {
+                if (seconds <= 0) {
+                    clearInterval(timer);
+                    adModal.style.display = 'none';
+                    setTimeout(showAd, 60000);
+                }
+            });
+        }
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
